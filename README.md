@@ -1,11 +1,11 @@
 # Terraform ECS Fargate
 
-The goal of this effort is to provision the infrastructure and deployment of a containerized service to AWS making use of Terraform and ECS (Elastic Container Service) Fargate --> [AWS ECS Fargate][fargate].
+The goal of this effort is to provision the infrastructure and deployment of a containerized orchestration service to AWS making use of Terraform and ECS (Elastic Container Service) Fargate --> [AWS ECS Fargate][fargate].
 
 
 ## Implementation
 
-We will be making use of Terraform to initially provision the infrastructure for our service, and eventually use it to apply updates to our application & infrastructure as required.
+We will be making use of Terraform to initially provision the infrastructure for the service, and eventually use it to apply updates to the application & infrastructure as required.
 
 1. Provisioning Infrastructure on AWS
     * Create Security Groups
@@ -31,12 +31,12 @@ that is needed.
 |------|-------------|:----:|
 | [main.tf][main] | Terraform remote state, AWS provider, output |  |
 | [variables.tf][var] | Set actual values of the variables | Yes |
-| [ecs_task.tf][ecs] | ECS Cluster, Service, Task Definition, ecsTaskExecutionRole, CloudWatch Log Group |  |
-| [alb.tf][alb] | ALB, Target Group, S3 bucket for access logs  |  |
-| [nsg.tf][nsg] | NSG for ALB and Task |  |
-| [iam_role.tf][iam] | Application Role for container | Yes |
-| [cw_logs.tf][cwl] | IAM user that can be used by CI/CD systems | Yes |
-| [ecr.tf][ecr] | Add an ECS event log dashboard |  |
+| [ecs_task.tf][ecs] | ECS Cluster, Service, Task Definition, ecsTaskExecutionRole |  |
+| [alb.tf][alb] | ALB, Target Group, Listener  |  |
+| [nsg.tf][nsg] | Security groups for ALB and ECS |  |
+| [iam_role.tf][iam] | Roles and permissions for ECS tasks | Yes |
+| [cw_logs.tf][cwl] | Container to send and collect log information | Yes |
+| [ecr.tf][ecr] | ECR for storing docker images |  |
 | [ecs-event-stream.tf][ees] | Add an ECS event log dashboard | Yes |
 
 
@@ -49,16 +49,19 @@ $ cd base
 # Sets up Terraform to run
 $ terraform init
 
+# Sets up resource plan before applying
+$ terraform plan
+
 # Executes the Terraform run
 $ terraform apply
 ```
 
 
-We can proceed to run ```terraform plan``` which will give us an overview of how our infrastructure is going to be provisioned before actually being provisioned.
+We can proceed to run ```terraform plan``` which will give us an overview of how the infrastructure is going to be provisioned before actually being provisioned.
 
-On successful execution of ```terraform plan```, we can finally execute our provision plan by running ```terraform apply```.
+On successful execution of ```terraform plan```, we can finally execute the provision plan by running ```terraform apply```.
 
-Once ```terraform apply``` is complete, all the resources would have been created, and should be accessible via the URL provided by our Application Load Balancer.
+Once ```terraform apply``` is complete, all the resources would have been created, and should be accessible via the URL provided by the Application Load Balancer.
 
 
 [fargate]: https://aws.amazon.com/fargate/

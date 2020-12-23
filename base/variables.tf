@@ -10,8 +10,7 @@ variable "region" {
 
 # Tags for the infrastructure
 variable "tags" {
-  Environment = "staging"
-  Application = "dummyapi"
+  type = map(string)
 }
 
 # The application's name
@@ -35,7 +34,7 @@ variable "lb_port" {
 
 # The load balancer protocol
 variable "lb_protocol" {
-  default = "HTTP"
+  default = "HTTPS"
 }
 
 # Network configuration

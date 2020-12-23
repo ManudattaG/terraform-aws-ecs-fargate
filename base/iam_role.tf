@@ -15,9 +15,6 @@ resource "aws_iam_role_policy" "app_policy" {
   policy = data.aws_iam_policy_document.app_policy.json
 }
 
-data "aws_caller_identity" "current" {
-}
-
 # allow role to be assumed by ecs and local saml users (for development)
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {

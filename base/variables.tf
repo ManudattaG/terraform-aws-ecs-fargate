@@ -5,7 +5,7 @@
 
 # The AWS region to use for the dev environment's infrastructure
 variable "region" {
-  default = "us-east-1"
+  default = "eu-central-1"
 }
 
 # Tags for the infrastructure
